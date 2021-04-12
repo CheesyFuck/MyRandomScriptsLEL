@@ -6,13 +6,21 @@
 
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
+#change python version if theres any cause yes:D
+pyver=3.9.4
 
+if [ ! -f /mnt/dietpi_userdata/config.env ]; then
+	echo -e "\e[0;32m====================================================================\e[0m"
+    echo -e "\e[0;31mconfig.env not found...\e[0m pls place the file in /mnt/dietpi_userdata/"
+    echo -e "\e[0;32m====================================================================\e[0m"
+	exit
+fi
 apt update
 apt upgrade -y
-apt -y install git chromium-driver neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
+apt -y install git chromium-driver fdupes neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
 cd /root/
 # python installer
-wget https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz && tar -xf Python-3.9.4.tgz && cd Python-3.9.4 && ./configure --enable-optimizations && make -j 2 && make altinstall
+wget https://www.python.org/ftp/python/$pyver/Python-$pyver.tgz && tar -xf Python-$pyver.tgz && cd Python-$pyver && ./configure --enable-optimizations && make -j 2 && make altinstall
 cd /root/
 # ub installer section
 if test -f "$FILE1"; then
@@ -45,4 +53,15 @@ ExecStart=sh /usr/bin/userbot
 WantedBy=multi-user.target' > /etc/systemd/system/userbot.service
 systemctl enable userbot
 systemctl start userbot
+echo -e "\e[0;35m[installer] Cleanup... \e[0m"
+cd /root/
+fdupes -d -N .
+if test -f "Python-$pyver.tgz"; then
+    rm -rf "Python-$pyver.tgz"
+    rm -rf "Python-$pyver"
+fi
+if test -f "Python-$pyver.tgz.1"; then
+    rm -rf "Python-$pyver.tgz.1"
+    rm -rf "Python-$pyver"
+fi
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."

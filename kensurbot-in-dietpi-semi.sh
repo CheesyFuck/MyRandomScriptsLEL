@@ -7,6 +7,14 @@
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
 
+
+
+if [ ! -f /mnt/dietpi_userdata/config.env ]; then
+	echo -e "\e[0;32m====================================================================\e[0m"
+    echo -e "\e[0;31mconfig.env not found...\e[0m pls place the file in /mnt/dietpi_userdata/"
+    echo -e "\e[0;32m====================================================================\e[0m"
+	exit
+fi
 apt update
 apt upgrade -y
 apt -y install git chromium-driver neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
