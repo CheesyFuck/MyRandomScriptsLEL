@@ -16,10 +16,6 @@ if [ ! -f /mnt/dietpi_userdata/config.env ]; then
     echo -e "\e[0;32m====================================================================\e[0m"
 	exit
 fi
-if [ -d "/root/KensurBot" ] 
-then
-    rm -rf /root/KensurBot
-fi
 apt update
 apt upgrade -y
 # all is prerequisites 
