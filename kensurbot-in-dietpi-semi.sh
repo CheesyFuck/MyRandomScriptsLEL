@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#full installer for Kensurbot in dietpi(and possibly rasbian or any debian distro, not bothered to test so meh)
+#semi installer for Kensurbot in dietpi(and possibly rasbian or any debian distro, not bothered to test so meh)
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
 
