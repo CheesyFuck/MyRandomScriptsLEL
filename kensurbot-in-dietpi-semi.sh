@@ -7,8 +7,6 @@
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
 
-
-
 if [ ! -f /mnt/dietpi_userdata/config.env ]; then
 	echo -e "\e[0;32m====================================================================\e[0m"
     echo -e "\e[0;31mconfig.env not found...\e[0m pls place the file in /mnt/dietpi_userdata/"
