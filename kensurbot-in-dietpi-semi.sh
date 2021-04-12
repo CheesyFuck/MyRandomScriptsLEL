@@ -11,9 +11,6 @@ apt update
 apt upgrade -y
 apt -y install git chromium-driver neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
 cd /root/
-# python installer
-wget https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz && tar -xf Python-3.9.4.tgz && cd Python-3.9.4 && ./configure --enable-optimizations && make -j 2 && make altinstall
-cd /root/
 # ub installer section
 if test -f "$FILE1"; then
     rm -rf "$FILE1"
