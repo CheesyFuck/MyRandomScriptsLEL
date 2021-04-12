@@ -6,7 +6,8 @@
 
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
-#change python version if theres any cause yes:D
+
+#change this if theres any new python versions:P
 pyver=3.9.4
 
 if [ ! -f /mnt/dietpi_userdata/config.env ]; then
@@ -15,8 +16,13 @@ if [ ! -f /mnt/dietpi_userdata/config.env ]; then
     echo -e "\e[0;32m====================================================================\e[0m"
 	exit
 fi
+if [ -d "/root/KensurBot" ] 
+then
+    rm -rf /root/KensurBot
+fi
 apt update
 apt upgrade -y
+# all is prerequisites 
 apt -y install git chromium-driver fdupes neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
 cd /root/
 # python installer
@@ -25,9 +31,10 @@ cd /root/
 # ub installer section
 if test -f "$FILE1"; then
     rm -rf "$FILE1"
+	systemctl disable userbot
 fi
 if test -f "$FILE0"; then
-    rm -rf "$FILE1"
+    rm -rf "$FILE0"
 fi
 git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s /mnt/dietpi_userdata/config.env ./
 ln -s /root/KensurBot /mnt/dietpi_userdata/
