@@ -48,7 +48,7 @@ Description=userbot
 [Service]
 Type=simple
 User=root
-RemainAfterExit=yes
+RemainAfterExit=no
 #WorkingDirectory=/usr/bin
 ExecStart=sh /usr/bin/userbot
 

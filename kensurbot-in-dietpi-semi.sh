@@ -16,6 +16,7 @@ fi
 if [ -d "/root/KensurBot" ] 
 then
     rm -rf /root/KensurBot
+	systemctl stop userbot
 fi
 apt update
 apt upgrade -y
