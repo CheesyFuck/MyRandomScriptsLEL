@@ -7,7 +7,7 @@
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
 confLoc0=/mnt/dietpi_userdata
-confLoc1=/mnt/dietpi_userdata/userbot/ub_configs/KensurBot
+confLoc1=/mnt/dietpi_userdata/userbots/ub_configs/KensurBot
 ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot
 ubInstallLocRoot=/mnt/dietpi_userdata/userbots
 
