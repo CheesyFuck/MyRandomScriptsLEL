@@ -27,7 +27,7 @@ if [ -f $confLoc0/config.env ]; then
 		mv $confLoc0/config.env $confLoc1/config.env
 		configmessage0=true
 	else
-	configmessage0=false
+		configmessage0=false
 	fi
 fi
 
