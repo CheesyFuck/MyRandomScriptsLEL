@@ -21,11 +21,13 @@ if [ ! -f $confLoc1/config.env ]; then
 fi
 
 if [ -f /mnt/dietpi_userdata/config.env ]; then
-	if [ ! -f $confLoc1/config.env ]; then
+	if [ ! -f $confLoc1/config.env ]
+	then
 		mkdir $confLoc1
 		mv $confLoc0/config.env $confLoc1/config.env
 	else
 	configmessage0=true
+	fi
 fi
 
 if [ -d "$ubInstallLoc" ] 
@@ -47,7 +49,7 @@ if test -f "$FILE0"; then
     rm -rf "$FILE0"
 fi
 cd $ubInstallLocRoot
-git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s /mnt/dietpi_userdata/ub_configs/KensurBot/config.env $ubInstallLoc
+git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
 cd /root/
 echo '#Aria
 sleep 2
@@ -71,5 +73,6 @@ WantedBy=multi-user.target' > /etc/systemd/system/userbot.service
 systemctl enable userbot
 systemctl start userbot
 if [[ "configmessage0" == "true" ]]
-	echo -e "\e[0;35m[installer] Finished! \e[0m-- config.env has been moved to "
+	echo -e "\e[0;35m[installer] Finished! \e[0m-- config.env has been moved to $confLoc1"
+fi
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
