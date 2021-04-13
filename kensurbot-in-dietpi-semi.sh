@@ -73,7 +73,7 @@ ExecStart=sh /usr/bin/userbot
 WantedBy=multi-user.target' > /etc/systemd/system/userbot.service
 systemctl enable userbot
 systemctl start userbot
-if [[ "configmessage0" == "true" ]]
+if [ "$configmessage0" == "true" ]
 	then
 		echo -e "\e[0;36m[installer] Notice! \e[0m-- config.env has been moved to $confLoc1"
 	else
