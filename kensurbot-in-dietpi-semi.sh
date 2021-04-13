@@ -20,13 +20,14 @@ if [ ! -f $confLoc1/config.env ]; then
 	fi
 fi
 
-if [ -f /mnt/dietpi_userdata/config.env ]; then
+if [ -f $confLoc0/config.env ]; then
 	if [ ! -f $confLoc1/config.env ]
 	then
 		mkdir -p $confLoc1
 		mv $confLoc0/config.env $confLoc1/config.env
+		configmessage0=true
 	else
-	configmessage0=true
+	configmessage0=false
 	fi
 fi
 
@@ -73,6 +74,9 @@ WantedBy=multi-user.target' > /etc/systemd/system/userbot.service
 systemctl enable userbot
 systemctl start userbot
 if [[ "configmessage0" == "true" ]]
-	echo -e "\e[0;35m[installer] Finished! \e[0m-- config.env has been moved to $confLoc1"
+	then
+		echo -e "\e[0;36m[installer] Notice! \e[0m-- config.env has been moved to $confLoc1"
+	else
+		echo -e "\e[0;32m[installer] Notice! \e[0m-- config.env already exist at $confLoc1 pls check"
 fi
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
