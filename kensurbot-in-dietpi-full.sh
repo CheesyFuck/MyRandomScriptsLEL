@@ -8,7 +8,7 @@ FILE0=/usr/bin/userbots
 FILE1=/etc/systemd/system/userbot.service
 confLoc0=/mnt/dietpi_userdata
 confLoc1=/mnt/dietpi_userdata/userbots/ub_configs/KensurBot
-ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot  #also edit this part in line 60
+ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot  #also edit this part in line 64
 ubInstallLocRoot=/mnt/dietpi_userdata/userbots
 pyver=3.9.4
 
