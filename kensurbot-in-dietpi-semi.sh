@@ -53,9 +53,9 @@ cd $ubInstallLocRoot
 git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
 cd /root/
 echo '#Aria
-sleep 2
 aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
-sleep 5
+echo waiting aria to execute.....if failed then change delay lmao
+sleep 8
 #Kensurbot
 cd /mnt/dietpi_userdata/userbots/KensurBot && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
 chmod +x /usr/bin/userbot

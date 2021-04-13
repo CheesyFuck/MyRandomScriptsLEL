@@ -1,20 +1,41 @@
 #!/bin/bash
 
-#full installer for Kensurbot in dietpi(and possibly rasbian or any debian distro, not bothered to test so meh)
+#semi installer for Kensurbot in dietpi(and possibly rasbian or any debian distro, not bothered to test so meh)
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
 
-FILE0=/usr/bin/userbot
+FILE0=/usr/bin/userbots
 FILE1=/etc/systemd/system/userbot.service
-
-#change this if theres any new python versions:P
+confLoc0=/mnt/dietpi_userdata
+confLoc1=/mnt/dietpi_userdata/userbots/ub_configs/KensurBot
+ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot  #also edit this part in line 60
+ubInstallLocRoot=/mnt/dietpi_userdata/userbots
 pyver=3.9.4
 
-if [ ! -f /mnt/dietpi_userdata/config.env ]; then
-	echo -e "\e[0;32m====================================================================\e[0m"
-    echo -e "\e[0;31mconfig.env not found...\e[0m pls place the file in /mnt/dietpi_userdata/"
-    echo -e "\e[0;32m====================================================================\e[0m"
-	exit
+if [ ! -f $confLoc1/config.env ]; then
+	if [ ! -f $confLoc0/config.env ]; then
+		echo -e "\e[0;32m====================================================================\e[0m"
+		echo -e "\e[0;31mconfig.env not found...\e[0m pls place the file in /mnt/dietpi_userdata/"
+		echo -e "\e[0;32m====================================================================\e[0m"
+		exit
+	fi
+fi
+
+if [ -f $confLoc0/config.env ]; then
+	if [ ! -f $confLoc1/config.env ]
+	then
+		mkdir -p $confLoc1
+		mv $confLoc0/config.env $confLoc1/config.env
+		configmessage0=true
+	else
+		configmessage0=false
+	fi
+fi
+
+if [ -d "$ubInstallLoc" ] 
+then
+    rm -rf $ubInstallLoc
+	systemctl stop userbot
 fi
 apt update
 apt upgrade -y
@@ -32,15 +53,15 @@ fi
 if test -f "$FILE0"; then
     rm -rf "$FILE0"
 fi
-git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s /mnt/dietpi_userdata/config.env ./
-ln -s /root/KensurBot /mnt/dietpi_userdata/
+cd $ubInstallLocRoot
+git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
 cd /root/
 echo '#Aria
-sleep 2
 aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
-sleep 5
+echo waiting aria to execute.....if failed then change delay lmao
+sleep 8
 #Kensurbot
-cd /root/KensurBot && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
+cd /mnt/dietpi_userdata/userbots/KensurBot && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
 chmod +x /usr/bin/userbot
 echo '[Unit]
 Description=userbot
@@ -66,5 +87,14 @@ fi
 if test -f "Python-$pyver.tgz.1"; then
     rm -rf "Python-$pyver.tgz.1"
     rm -rf "Python-$pyver"
+fi
+if [ "$configmessage0" == "true" ]
+	then
+		echo -e "\e[0;36m[installer] Notice! \e[0m-- config.env has been moved to $confLoc1"
+	else
+		if [ "$configmessage0" == "false" ]
+		then
+			echo -e "\e[0;32m[installer] Notice! \e[0m-- config.env already exist at $confLoc1 pls check"
+		fi
 fi
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
