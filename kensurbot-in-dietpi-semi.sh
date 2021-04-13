@@ -4,7 +4,7 @@
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
 
-FILE0=/usr/bin/userbot
+FILE0=/usr/bin/userbots
 FILE1=/etc/systemd/system/userbot.service
 confLoc0=/mnt/dietpi_userdata
 confLoc1=/mnt/dietpi_userdata/userbots/ub_configs/KensurBot
