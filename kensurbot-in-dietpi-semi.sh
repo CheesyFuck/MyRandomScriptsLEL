@@ -77,6 +77,9 @@ if [ "$configmessage0" == "true" ]
 	then
 		echo -e "\e[0;36m[installer] Notice! \e[0m-- config.env has been moved to $confLoc1"
 	else
-		echo -e "\e[0;32m[installer] Notice! \e[0m-- config.env already exist at $confLoc1 pls check"
+		if [ "$configmessage0" == "false" ]
+		then
+			echo -e "\e[0;32m[installer] Notice! \e[0m-- config.env already exist at $confLoc1 pls check"
+		fi
 fi
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
