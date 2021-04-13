@@ -23,7 +23,7 @@ fi
 if [ -f /mnt/dietpi_userdata/config.env ]; then
 	if [ ! -f $confLoc1/config.env ]
 	then
-		mkdir $confLoc1
+		mkdir -p $confLoc1
 		mv $confLoc0/config.env $confLoc1/config.env
 	else
 	configmessage0=true
