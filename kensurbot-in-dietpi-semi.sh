@@ -8,7 +8,7 @@ FILE0=/usr/bin/userbots
 FILE1=/etc/systemd/system/userbot.service
 confLoc0=/mnt/dietpi_userdata
 confLoc1=/mnt/dietpi_userdata/userbots/ub_configs/KensurBot
-ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot
+ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot  #also edit this part in line 60
 ubInstallLocRoot=/mnt/dietpi_userdata/userbots
 
 if [ ! -f $confLoc1/config.env ]; then
@@ -57,7 +57,7 @@ sleep 2
 aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
 sleep 5
 #Kensurbot
-cd $ubInstallLoc && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
+cd /mnt/dietpi_userdata/userbots/KensurBot && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
 chmod +x /usr/bin/userbot
 echo '[Unit]
 Description=userbot
