@@ -6,16 +6,31 @@
 
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
+confLoc0=/mnt/dietpi_userdata/
+confLoc1=/mnt/dietpi_userdata/userbot/ub_configs/KensurBot
+ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot
+ubInstallLocRoot=/mnt/dietpi_userdata/userbots
 
-if [ ! -f /mnt/dietpi_userdata/config.env ]; then
-	echo -e "\e[0;32m====================================================================\e[0m"
-    echo -e "\e[0;31mconfig.env not found...\e[0m pls place the file in /mnt/dietpi_userdata/"
-    echo -e "\e[0;32m====================================================================\e[0m"
-	exit
+if [ ! -f $confLoc1/config.env ]; then
+	if [ ! -f $confLoc0/config.env ]; then
+		echo -e "\e[0;32m====================================================================\e[0m"
+		echo -e "\e[0;31mconfig.env not found...\e[0m pls place the file in /mnt/dietpi_userdata/"
+		echo -e "\e[0;32m====================================================================\e[0m"
+		exit
+	fi
 fi
-if [ -d "/root/KensurBot" ] 
+
+if [ -f /mnt/dietpi_userdata/config.env ]; then
+	if [ ! -f $confLoc1/config.env ]; then
+		mkdir $confLoc1
+		mv $confLoc0/config.env $confLoc1/config.env
+	else
+	configmessage0=true
+fi
+
+if [ -d "$ubInstallLoc" ] 
 then
-    rm -rf /root/KensurBot
+    rm -rf $ubInstallLoc
 	systemctl stop userbot
 fi
 apt update
@@ -31,15 +46,15 @@ fi
 if test -f "$FILE0"; then
     rm -rf "$FILE0"
 fi
-git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s /mnt/dietpi_userdata/config.env ./
-ln -s /root/KensurBot /mnt/dietpi_userdata/
+cd $ubInstallLocRoot
+git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s /mnt/dietpi_userdata/ub_configs/KensurBot/config.env $ubInstallLoc
 cd /root/
 echo '#Aria
 sleep 2
 aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
 sleep 5
 #Kensurbot
-cd /root/KensurBot && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
+cd $ubInstallLoc && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
 chmod +x /usr/bin/userbot
 echo '[Unit]
 Description=userbot
@@ -55,4 +70,6 @@ ExecStart=sh /usr/bin/userbot
 WantedBy=multi-user.target' > /etc/systemd/system/userbot.service
 systemctl enable userbot
 systemctl start userbot
+if [[ "configmessage0" == "true" ]]
+	echo -e "\e[0;35m[installer] Finished! \e[0m-- config.env has been moved to "
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
