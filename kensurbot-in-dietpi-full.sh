@@ -3,13 +3,22 @@
 #semi installer for Kensurbot in dietpi(and possibly rasbian or any debian distro, not bothered to test so meh)
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
-
-FILE0=/usr/bin/userbots
+echo -e "\e[0;35m[installer] Notice! \e[0m-- Make sure Your running under the root user. if you do you may continue"
+read
+if cd /root/ ; then
+	echo "test pass ig"
+else
+    echo -e "\e[0;35m[installer] Notice! \e[0m-- \e[0;31mYou didn't listen to me... isaid use root user/account instead a puny guest user!\e[0m"
+	exit
+fi
+FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
 confLoc0=/mnt/dietpi_userdata
 confLoc1=/mnt/dietpi_userdata/userbots/ub_configs/KensurBot
-ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot  #also edit this part in line 64
+ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot  #also edit this part in line 60
 ubInstallLocRoot=/mnt/dietpi_userdata/userbots
+pythonSetupLocRoot=/mnt/dietpi_userdata/userbots/python
+#change this if theres any new python versions:P
 pyver=3.9.4
 
 if [ ! -f $confLoc1/config.env ]; then
@@ -37,14 +46,27 @@ then
     rm -rf $ubInstallLoc
 	systemctl stop userbot
 fi
+# crontab for something ig
+crontab -l > cronlist.txt
+if grep -Fxq "*/5 17-23 * * * ping -c1 8.8.8.8" cronlist.txt
+then
+    # code if found
+        echo 'It Already Exist so men'
+else
+    # code if not found
+        echo '*/5 17-23 * * * ping -c1 8.8.8.8' >> cronlist.txt
+		crontab cronlist.txt
+fi
+rm cronlist.txt
 apt update
 apt upgrade -y
 # all is prerequisites 
 apt -y install git chromium-driver fdupes neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
-cd /root/
 # python installer
+mkdir -p $pythonSetupLocRoot
+cd $pythonSetupLocRoot
 wget https://www.python.org/ftp/python/$pyver/Python-$pyver.tgz && tar -xf Python-$pyver.tgz && cd Python-$pyver && ./configure --enable-optimizations && make -j 2 && make altinstall
-cd /root/
+rm $pythonSetupLocRoot
 # ub installer section
 if test -f "$FILE1"; then
     rm -rf "$FILE1"
@@ -77,17 +99,6 @@ ExecStart=sh /usr/bin/userbot
 WantedBy=multi-user.target' > /etc/systemd/system/userbot.service
 systemctl enable userbot
 systemctl start userbot
-echo -e "\e[0;35m[installer] Cleanup... \e[0m"
-cd /root/
-fdupes -d -N .
-if test -f "Python-$pyver.tgz"; then
-    rm -rf "Python-$pyver.tgz"
-    rm -rf "Python-$pyver"
-fi
-if test -f "Python-$pyver.tgz.1"; then
-    rm -rf "Python-$pyver.tgz.1"
-    rm -rf "Python-$pyver"
-fi
 if [ "$configmessage0" == "true" ]
 	then
 		echo -e "\e[0;36m[installer] Notice! \e[0m-- config.env has been moved to $confLoc1"
@@ -97,4 +108,5 @@ if [ "$configmessage0" == "true" ]
 			echo -e "\e[0;32m[installer] Notice! \e[0m-- config.env already exist at $confLoc1 pls check"
 		fi
 fi
+chmod 777 $ubInstallLocRoot
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
