@@ -35,6 +35,12 @@ fi
 if [ -d "$ubInstallLoc" ] 
 then
     rm -rf $ubInstallLoc
+	if [ $? -eq 0 ]; then
+		echo OK
+	else
+		echo Something Went horribly wrong.... did you run this script in root user?
+		exit
+	fi
 	systemctl stop userbot
 fi
 # crontab for something ig
