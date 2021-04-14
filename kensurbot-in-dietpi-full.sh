@@ -10,7 +10,7 @@ if cd /root/
 		echo "test pass ig"
 	else
 		echo -e "\e[0;35m[installer] Notice! \e[0m-- \e[0;31mYou didn't listen to me... isaid use root user/account instead a puny guest user!\e[0m"
-	exit
+		exit
 fi
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
