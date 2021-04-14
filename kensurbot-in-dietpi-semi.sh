@@ -5,10 +5,11 @@
 #it needs dos2unix cause i made this script in windowsXDDD
 echo -e "\e[0;35m[installer] Notice! \e[0m-- Make sure Your running under the root user. if you do you may continue"
 read
-if cd /root/ ; then
-    echo "test pass ig"
-else
-    echo -e "\e[0;35m[installer] Notice! \e[0m-- \e[0;31mYou didn't listen to me... isaid use root user/account instead a puny guest user!\e[0m"
+if cd /root/ 
+	then
+		echo "test pass ig"
+	else
+		echo -e "\e[0;35m[installer] Notice! \e[0m-- \e[0;31mYou didn't listen to me... isaid use root user/account instead a puny guest user!\e[0m"
 	exit
 fi
 FILE0=/usr/bin/userbot
