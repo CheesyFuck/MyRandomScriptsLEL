@@ -57,11 +57,13 @@ apt upgrade -y
 apt -y install git chromium-driver fdupes neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
 # python installer
 mkdir -p $pythonSetupLocRoot
+# check if scipt running under user root
+echo -e "\e[0;32m[installer] Notice! \e[0m-- checking if script running under root user/account"
 cd /root/
-	if [ $? -eq 0 ]; then
+if [ $? -eq 0 ]; then
 		echo OK
 	else
-		echo -e "\e[0;31mSomething Went horribly wrong.... did you run this script under root user?\e[0m"
+		echo -e "\e[0;31mSomething Went horribly wrong.... did you run this script under root user/account?\e[0m"
 		exit
 	fi
 cd $pythonSetupLocRoot
