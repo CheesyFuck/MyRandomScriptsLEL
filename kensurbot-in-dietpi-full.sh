@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# check if scipt running under user root
+echo -e "\e[0;32m[installer] Notice! \e[0m-- checking if script running under root user/account"
+cd /root/
+if [ $? -eq 0 ]; then
+		echo OK
+	else
+		echo -e "\e[0;31mSomething Went horribly wrong.... did you run this script under root user/account?\e[0m"
+		exit
+	fi
+	
 #semi installer for Kensurbot in dietpi(and possibly rasbian or any debian distro, not bothered to test so meh)
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
