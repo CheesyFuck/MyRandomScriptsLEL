@@ -4,13 +4,13 @@
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
 echo -e "\e[0;35m[installer] Notice! \e[0m-- Make sure Your running under the root user. if you do you may continue"
-read
-if cd /root/ 
-	then
-		echo "test pass ig"
-	else
-		echo -e "\e[0;35m[installer] Notice! \e[0m-- \e[0;31mYou didn't listen to me... isaid use root user/account instead a puny guest user!\e[0m"
-		exit
+read man
+cd /root/
+if [ $? -eq 0 ]; then
+    echo OK
+else
+    echo -e "\e[0;35m[installer] Notice! \e[0m-- \e[0;31mYou didn't listen to me... isaid use root user/account instead a puny guest user!\e[0m"
+	exit
 fi
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
