@@ -57,7 +57,7 @@ cd /root/
 if [ $? -eq 0 ]; then
 		echo OK
 	else
-		echo -e "\e[0;31mSomething Went horribly wrong.... did you run this script in root user?\e[0m"
+		echo -e "\e[0;31mSomething Went horribly wrong.... did you run this script under root user?\e[0m"
 		exit
 	fi
 # ub installer section
