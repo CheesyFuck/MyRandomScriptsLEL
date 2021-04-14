@@ -36,6 +36,15 @@ fi
 
 if [ -d "$ubInstallLoc" ] 
 then
+	# check if scipt running under user root
+	echo -e "\e[0;32m[installer] Notice! \e[0m-- checking if script running under root user/account"
+	cd /root/
+	if [ $? -eq 0 ]; then
+			echo OK
+		else
+			echo -e "\e[0;31mSomething Went horribly wrong.... did you run this script under root user/account?\e[0m"
+			exit
+		fi
     rm -rf $ubInstallLoc
 	systemctl stop userbot
 fi
@@ -58,7 +67,7 @@ apt -y install git chromium-driver fdupes neofetch ffmpeg aria2 build-essential 
 # python installer
 mkdir -p $pythonSetupLocRoot
 # check if scipt running under user root
-echo -e "\e[0;32m[installer] Notice! \e[0m-- checking if script running under root user/account"
+echo -e "\e[0;32m[installer] Notice! \e[0m-- checking if script running under root user/account again the second time just to be sure:P"
 cd /root/
 if [ $? -eq 0 ]; then
 		echo OK
