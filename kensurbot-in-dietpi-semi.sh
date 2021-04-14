@@ -101,5 +101,5 @@ if [ "$configmessage0" == "true" ]
 			echo -e "\e[0;32m[installer] Notice! \e[0m-- config.env already exist at $confLoc1 pls check"
 		fi
 fi
-chmod 777 $ubInstallLocRoot
+chmod -R 777 $ubInstallLocRoot
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
