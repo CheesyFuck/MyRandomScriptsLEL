@@ -57,6 +57,13 @@ apt upgrade -y
 apt -y install git chromium-driver fdupes neofetch ffmpeg aria2 build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev nano libssl-dev libpq-dev libxml2-dev libxslt-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev libjpeg-dev curl software-properties-common
 # python installer
 mkdir -p $pythonSetupLocRoot
+cd /root/
+	if [ $? -eq 0 ]; then
+		echo OK
+	else
+		echo Something Went horribly wrong.... did you run this script in root user?
+		exit
+	fi
 cd $pythonSetupLocRoot
 wget https://www.python.org/ftp/python/$pyver/Python-$pyver.tgz && tar -xf Python-$pyver.tgz && cd Python-$pyver && ./configure --enable-optimizations && make -j 2 && make altinstall
 rm $pythonSetupLocRoot
