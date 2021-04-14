@@ -3,8 +3,8 @@
 #semi installer for Kensurbot in dietpi(and possibly rasbian or any debian distro, not bothered to test so meh)
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
-echo -e "\e[0;35m[installer] Notice! \e[0m-- Make sure Your running under the root user. if you do you may continue"
-read acceptitlmao
+echo -e "\e[0;35m[installer] Notice! \e[0m-- Make sure Your running under the root user. NOT sudo, if you do you may continue"
+read -p "Press Enter to Continue..."
 FILE0=/usr/bin/userbot
 FILE1=/etc/systemd/system/userbot.service
 confLoc0=/mnt/dietpi_userdata
