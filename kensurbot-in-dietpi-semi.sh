@@ -81,6 +81,7 @@ if [ $? -eq 0 ]; then
 		exit
 	fi
 # config git username or email just so supdate will work 
+echo -e "\e[0;36m[installer] Notice! \e[0m-- Checking if Git account is set, if theres none it will set a placeholder(eg. dietpi and dietpi@dietpi.lol)\e[0m"
 git config --global --list > gitlol.txt
 gitlol=$(<gitlol.txt)
 case "$gitlol" in
@@ -92,7 +93,6 @@ case "$gitlol" in
 *      ) echo applying git username placeholder ; git config --global user.name "dietpi" ; usern=false ;;
 esac
 #git setting checking junk..... sets git acount if missing
-echo -e "\e[0;36m[installer] Notice! \e[0m-- Checking if Git account is set, if theres none it will set a placeholder(eg. dietpi and dietpi@dietpi.lol)\e[0m"
 if [ "$usern" == "true" ]
 	then
 		setn="\e[0;32m[using your own git username]\e[0m"
