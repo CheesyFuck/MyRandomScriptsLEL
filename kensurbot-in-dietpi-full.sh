@@ -100,6 +100,7 @@ case "$gitlol" in
 *      ) echo applying git username placeholder ; git config --global user.name "dietpi" ; usern=false ;;
 esac
 #git setting checking junk..... sets git acount if missing
+echo -e "\e[0;36m[installer] Notice! \e[0m-- Checking if Git account is set, if theres none it will set a placeholder(eg. dietpi and dietpi@dietpi.lol)\e[0m"
 if [ "$usern" == "true" ]
 	then
 		setn="\e[0;32m[using your own git username]\e[0m"
@@ -161,6 +162,6 @@ if [ "$configmessage0" == "true" ]
 		fi
 fi
 chmod -R 777 $ubInstallLocRoot
-echo -e "\e[0;36m[installer] Git Account Summary! \e[0m-- Email == $setem || Username == $setn\e[0m'"
+echo -e "\e[0;33m[installer] Git Account Summary! \e[0m-- Email == $setem || Username == $setn\e[0m'"
 echo -e "\e[0;36m[installer] Notice! \e[0m-- self hosted version of updater module has been added. do \e[0;33m.supdate [now|force]\e[0m in telegram to update the bot\e[0m"
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
