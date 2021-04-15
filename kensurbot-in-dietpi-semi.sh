@@ -41,7 +41,6 @@ if [ -f $confLoc0/config.env ]; then
 		configmessage0=false
 	fi
 fi
-
 if [ -d "$ubInstallLoc" ] 
 then
 	# check if scipt running under user root
@@ -56,6 +55,10 @@ then
     rm -rf $ubInstallLoc
 	systemctl stop userbot
 fi
+#create the self hosted version of the updater module
+cd ubInstallLoc/KensurBot/userbot/modules/
+curl -s -L https://raw.githubusercontent.com/DGJM/KensurBot/master/userbot/modules/selfupdater.py --output selfupdate.py
+cd /root/
 # crontab for something ig
 crontab -l > cronlist.txt
 if grep -Fxq "*/5 17-23 * * * ping -c1 8.8.8.8" cronlist.txt
@@ -113,8 +116,17 @@ git clone https://github.com/KenHV/KensurBot.git && cd KensurBot ; python3.9 -m 
 cd /root/
 echo '#Aria
 aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
+sleep 2
+aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
 echo waiting aria to execute.....if failed then change delay lmao
-sleep 8
+#others
+
+if [ ! -f /mnt/dietpi_userdata/userbots/KensurBot/selfupdate.py ]
+then
+	cd /mnt/dietpi_userdata/userbots/KensurBot/userbot/modules/
+	curl -s -L https://raw.githubusercontent.com/DGJM/KensurBot/master/userbot/modules/selfupdater.py --output selfupdate.py
+fi
+sleep 6
 #Kensurbot
 cd /mnt/dietpi_userdata/userbots/KensurBot && . ./env/bin/activate && python -m userbot' > /usr/bin/userbot
 chmod +x /usr/bin/userbot
@@ -142,5 +154,6 @@ if [ "$configmessage0" == "true" ]
 		fi
 fi
 chmod -R 777 $ubInstallLocRoot
-echo -e "\e[0;33m[installer] Git Account Summary! \e[0m-- Email == $setem || Username == $setn\e[0m'"
+echo -e "\e[0;36m[installer] Git Account Summary! \e[0m-- Email == $setem || Username == $setn\e[0m"
+echo -e "\e[0;36m[installer] Notice! \e[0m-- self hosted version of updater module has been added. do \e[0;33m.supdate [now|force]\e[0m in telegram to update the bot\e[0m"
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
