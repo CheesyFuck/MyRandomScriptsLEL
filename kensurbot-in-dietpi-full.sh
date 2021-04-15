@@ -14,8 +14,7 @@ if [ $? -eq 0 ]; then
 #To anyone is here the way to install this is apt install -y curl dos2unix && curl https://pastebin.com/raw/M669vgvv | dos2unix | bash
 #it needs dos2unix cause i made this script in windowsXDDD
 
-FILE0=/usr/bin/userbot
-FILE1=/etc/systemd/system/userbot.service
+
 confLoc0=/mnt/dietpi_userdata
 confLoc1=/mnt/dietpi_userdata/userbots/ub_configs/KensurBot
 ubInstallLoc=/mnt/dietpi_userdata/userbots/KensurBot  #also edit this part in line 60
@@ -88,14 +87,34 @@ if [ $? -eq 0 ]; then
 cd $pythonSetupLocRoot
 wget https://www.python.org/ftp/python/$pyver/Python-$pyver.tgz && tar -xf Python-$pyver.tgz && cd Python-$pyver && ./configure --enable-optimizations && make -j 2 && make altinstall
 rm $pythonSetupLocRoot
+cd /root/
+# config git username or email just so supdate will work 
+git config --global --list > gitlol.txt
+gitlol=$(<gitlol.txt)
+case "$gitlol" in
+*user.name* ) echo 'It Already Exist so meh' ; emailerr=true ;;
+*      ) echo applying git username placeholder ; git config --global user.email "dietpi@dietpi.lol" ; emailerr=false ;;
+esac
+case "$gitlol" in
+*user.name* ) echo 'It Already Exist so meh' ; usern=true ;;
+*      ) echo applying git username placeholder ; git config --global user.name "dietpi" ; usern=false ;;
+esac
+#git setting checking junk..... sets git acount if missing
+if [ "$usern" == "true" ]
+	then
+		setn="\e[0;32m[using your own git username]\e[0m"
+	else
+		setn="\e[0;32m[using placeholder(eg. dietpi) git email]\e[0m"
+fi
+
+if [ "$emailerr" == "true" ]
+	then
+		setem="\e[0;32m[using your own git email]\e[0m"
+	else
+		setem="\e[0;32m[using placeholder(eg. dietpi@dietpi.lol) git email]\e[0m"
+fi
+rm gitlol.txt
 # ub installer section
-if test -f "$FILE1"; then
-    rm -rf "$FILE1"
-	systemctl disable userbot
-fi
-if test -f "$FILE0"; then
-    rm -rf "$FILE0"
-fi
 cd $ubInstallLocRoot
 git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
 cd /root/
@@ -130,4 +149,5 @@ if [ "$configmessage0" == "true" ]
 		fi
 fi
 chmod -R 777 $ubInstallLocRoot
+echo -e "\e[0;33m[installer] Git Account Summary! \e[0m-- Email == $setem || Username == $setn\e[0m'"
 echo -e "\e[0;35m[installer] Finished! \e[0m-- do \e[0;32msystemctl status userbot \e[0mif its running fine."
