@@ -109,7 +109,7 @@ fi
 rm gitlol.txt
 # ub installer section
 cd $ubInstallLocRoot
-git clone https://github.com/DGJM/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
+git clone https://github.com/KenHV/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
 cd /root/
 echo '#Aria
 aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
