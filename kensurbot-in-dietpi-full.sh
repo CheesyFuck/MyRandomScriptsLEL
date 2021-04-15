@@ -57,10 +57,6 @@ then
     rm -rf $ubInstallLoc
 	systemctl stop userbot
 fi
-#create the self hosted version of the updater module
-cd ubInstallLoc/KensurBot/userbot/modules/
-curl -s -L https://raw.githubusercontent.com/DGJM/KensurBot/master/userbot/modules/selfupdater.py --output selfupdate.py
-cd /root/
 # crontab for something ig
 crontab -l > cronlist.txt
 if grep -Fxq "*/5 17-23 * * * ping -c1 8.8.8.8" cronlist.txt
@@ -121,6 +117,9 @@ rm gitlol.txt
 # ub installer section
 cd $ubInstallLocRoot
 git clone https://github.com/KenHV/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
+#create the self hosted version of the updater module
+cd ubInstallLoc/KensurBot/userbot/modules/
+curl -s -L https://raw.githubusercontent.com/DGJM/KensurBot/master/userbot/modules/selfupdater.py --output selfupdate.py
 cd /root/
 echo '#Aria
 aria2c --daemon=true --enable-rpc –rpc-listen-port 8210
