@@ -119,7 +119,7 @@ rm gitlol.txt
 cd $ubInstallLocRoot
 git clone https://github.com/KenHV/KensurBot.git && cd KensurBot ; python3.9 -m pip install virtualenv && python3.9 -m virtualenv env && . ./env/bin/activate && pip install -r requirements.txt && ln -s ln -s $confLoc1/config.env $ubInstallLoc
 #create the self hosted version of the updater module
-cd $ubInstallLoc/KensurBot/userbot/modules/
+cd $ubInstallLoc/userbot/modules/
 curl -s -L https://raw.githubusercontent.com/DGJM/KensurBot/master/userbot/modules/selfupdater.py --output selfupdate.py
 cd /root/
 echo '#Aria
